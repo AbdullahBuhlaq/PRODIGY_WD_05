@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+      }
+      #red {
+        background-color: red;
+      }
+      #blue {
+        background-color: blue;
+      }
+      #green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="red" onclick="hi()">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis facere sit
+      incidunt deleniti voluptatibus quos, fugiat distinctio enim officia magni
+      veniam labore quia, ad minus harum sapiente quae voluptatem ducimus?
+    </div>
+    <div id="blue"></div>
+    <div id="green"></div>
+
+    <button onclick="hi()">click</button>
+    <button onclick="hi2()">click</button>
+
+    <script>
+      function hi() {
+        document.getElementById("red").style.WebkitTransitionDuration = "1s";
+        document.getElementById("red").style.webkitTransform =
+          "rotate3D(1,0,0,90deg)";
+        document.getElementById("red").style.webkitTransformOrigin = "top";
+      }
+      function hi2() {
+        document.getElementById("red").style.WebkitTransitionDuration = "1s";
+        document.getElementById("red").style.webkitTransform =
+          "rotate3D(1,0,0,0deg)";
+        document.getElementById("red").style.webkitTransformOrigin = "top";
+      }
+    </script>
+  </body>
+</html>
