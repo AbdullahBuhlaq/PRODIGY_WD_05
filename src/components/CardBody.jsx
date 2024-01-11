@@ -17,17 +17,8 @@ function CardBody(props) {
     <div className="card-body">
       <Current forecast={props.forecast} unit={props.unit} />
       <div className="daily-container">
-        {props.forecast.daily.map((item, index) => {
-          return (
-            <Daily
-              key={index}
-              id={index}
-              forecast={item}
-              unit={props.unit}
-              goup={goup}
-              godown={godown}
-            />
-          );
+        {props.forecast?.daily?.map((item, index) => {
+          return <Daily key={index} id={index} forecast={item} unit={props.unit} goup={goup} godown={godown} />;
         })}
         <button
           className="goup-button btn btn-primary"
@@ -38,9 +29,7 @@ function CardBody(props) {
               setTimeout(() => {
                 if (x.length) x[0].style.transitionDuration = "1s";
                 if (x.length) x[0].style.transformOrigin = "0% 0% 0px";
-                let y = (document.getElementsByClassName(
-                  "daily-container"
-                )[0].style.perspective = "3000px");
+                let y = (document.getElementsByClassName("daily-container")[0].style.perspective = "3000px");
 
                 if (x.length) x[0].style.transform = "rotate3D(1,0,0,270deg)";
                 setTimeout(() => {
@@ -53,14 +42,8 @@ function CardBody(props) {
         >
           Next Day
         </button>
-        <div className="d-flex justify-content-center daily-title current-title">
-          Daily Calendar
-        </div>
-        <img
-          src="./spring.png"
-          alt=""
-          className="d-flex justify-content-center daily-title current-title daily-img"
-        />
+        <div className="d-flex justify-content-center daily-title current-title">Daily Calendar</div>
+        <img src="./spring.png" alt="" className="d-flex justify-content-center daily-title current-title daily-img" />
         <button
           className="godown-button btn btn-primary"
           onClick={() => {
@@ -69,9 +52,7 @@ function CardBody(props) {
               if (x.length) x[0].style.visibility = "visible";
               if (x.length) x[0].style.transitionDuration = "1s";
               if (x.length) x[0].style.transformOrigin = "0% 0% 0px";
-              let y = (document.getElementsByClassName(
-                "daily-container"
-              )[0].style.perspective = "3000px");
+              let y = (document.getElementsByClassName("daily-container")[0].style.perspective = "3000px");
               if (x.length) x[0].style.transform = "rotate3D(1,0,0,0deg)";
               if (x.length)
                 setTimeout(() => {

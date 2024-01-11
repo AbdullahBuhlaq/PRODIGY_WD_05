@@ -1,15 +1,5 @@
 import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  Fille,
-} from "chart.js";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend, Fille } from "chart.js";
 import { useEffect, useState } from "react";
 import { weatherIcons, infoIcons, infoUnits } from "../iconsAndUnits";
 
@@ -83,7 +73,7 @@ function Current(props) {
   useEffect(() => {
     let labels = [];
     for (let i = 0; i < 8; i++) {
-      let date = new Date((props.forecast.current.dt + 86400 * i) * 1000);
+      let date = new Date((props.forecast?.current?.dt + 86400 * i) * 1000);
       labels.push(date.getDate() + "/" + date.getMonth());
     }
 
@@ -92,8 +82,10 @@ function Current(props) {
     let newData0 = [],
       newData1 = [];
     for (let i = 0; i < 8; i++) {
-      newData0.push(props.forecast.daily[i].temp.max);
-      newData1.push(props.forecast.daily[i].temp.min);
+      if (props.forecast.daily) {
+        newData0.push(props.forecast.daily[i].temp.max);
+        newData1.push(props.forecast.daily[i].temp.min);
+      }
     }
     ds0 = { ...ds0, data: newData0 };
     ds1 = { ...ds1, data: newData1 };
@@ -110,22 +102,21 @@ function Current(props) {
           min: parseInt(Math.min(...newData0, ...newData1)) - 5,
           ticks: {
             stepSize: 4,
-            callback: (value) =>
-              value + infoUnits[props.unit]["Feels Like"].props.children,
+            callback: (value) => value + infoUnits[props.unit]["Feels Like"].props.children,
           },
         },
       },
     });
 
     let newInfo = {
-      Clouds: props.forecast.current.clouds,
-      "Feels Like": props.forecast.current.feels_like,
-      Humidity: props.forecast.current.humidity,
-      Pressure: props.forecast.current.pressure,
-      UVI: props.forecast.current.uvi,
-      Visibility: props.forecast.current.visibility,
-      Wind: props.forecast.current.wind_speed,
-      "Wind Deg": props.forecast.current.wind_deg,
+      Clouds: props.forecast?.current?.clouds,
+      "Feels Like": props.forecast?.current?.feels_like,
+      Humidity: props.forecast?.current?.humidity,
+      Pressure: props.forecast?.current?.pressure,
+      UVI: props.forecast?.current?.uvi,
+      Visibility: props.forecast?.current?.visibility,
+      Wind: props.forecast?.current?.wind_speed,
+      "Wind Deg": props.forecast?.current?.wind_deg,
     };
 
     setInfo({ ...info, ...newInfo });
@@ -136,36 +127,20 @@ function Current(props) {
       <div className="row">
         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 current-section">
           <div>
-            <div className="d-flex justify-content-center current-title">
-              Current Weather
-            </div>
+            <div className="d-flex justify-content-center current-title">Current Weather</div>
           </div>
           <div className="temp-current">
             <div className="d-flex justify-content-center align-items-center">
-              <i
-                className={
-                  "weather-icon fa-solid " +
-                  weatherIcons[props.forecast.current.weather[0].icon]
-                }
-              >
-                {weatherIcons[props.forecast.current.weather[0].icon] ===
-                "fa-cloud black-cloud" ? (
-                  <i className={"weather-icon fa-solid fa-cloud above"}></i>
-                ) : null}
-              </i>
+              <i className={"weather-icon fa-solid " + weatherIcons[props.forecast?.current?.weather[0].icon]}>{weatherIcons[props.forecast?.current?.weather[0].icon] === "fa-cloud black-cloud" ? <i className={"weather-icon fa-solid fa-cloud above"}></i> : null}</i>
               <span className="current-temp">
-                {parseInt(props.forecast.current.temp)}
+                {parseInt(props.forecast?.current?.temp)}
                 {infoUnits[props.unit]["Feels Like"]}
               </span>
             </div>
           </div>
           <div className="main-current">
-            <div className="d-flex justify-content-center current-main">
-              {props.forecast.current.weather[0].main}
-            </div>
-            <div className="d-flex justify-content-center current-description">
-              {props.forecast.current.weather[0].description}
-            </div>
+            <div className="d-flex justify-content-center current-main">{props.forecast?.current?.weather[0].main}</div>
+            <div className="d-flex justify-content-center current-description">{props.forecast?.current?.weather[0].description}</div>
           </div>
         </div>
         <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12 current-chart">
@@ -182,9 +157,7 @@ function Current(props) {
                 <div className="d-flex justify-content-center">
                   <i className={"fa-solid " + infoIcons[item]}></i>
                 </div>
-                <div className="d-flex justify-content-center info-item">
-                  {item}
-                </div>
+                <div className="d-flex justify-content-center info-item">{item}</div>
               </div>
               <div className="row">
                 <div className="col d-flex justify-content-center info-value">

@@ -13,7 +13,7 @@ function CardWeather(props) {
   });
 
   useEffect(() => {
-    const weatherurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,hourly&units=${props.unit}&appid=94014be88226aec7a02dbc4b61bc3485`;
+    const weatherurl = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,hourly&units=${props.unit}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
 
     fetch(weatherurl)
       .then((res) => res.json())
@@ -35,7 +35,7 @@ function CardWeather(props) {
   useEffect(() => {}, [forecast]);
 
   function getCoords() {
-    const coordsurl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=94014be88226aec7a02dbc4b61bc3485`;
+    const coordsurl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
     fetch(coordsurl)
       .then((res) => res.json())
       .then((data) => {
@@ -49,7 +49,7 @@ function CardWeather(props) {
   }
 
   function getCity() {
-    const cityurl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${location.latitude}&lon=${location.longitude}&appid=94014be88226aec7a02dbc4b61bc3485`;
+    const cityurl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${location.latitude}&lon=${location.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
     fetch(cityurl)
       .then((res) => res.json())
       .then((data) => {
